@@ -4,6 +4,24 @@
 
 bool leftButtonPressed;
 bool rightButtonPressed;
+uint32_t rawPixelColorValue[10];
+
+
+void clearPixelColorValues(){
+    for(uint8_t i; i<10; i++){
+      CircuitPlayground.setPixelColor(i, 0x000000);
+    }
+}
+
+void setPixelColorValues(){
+    for(uint8_t i; i<10; i++){
+      CircuitPlayground.setPixelColor(i, rawPixelColorValue[i]);
+    }
+}
+
+void animateRedLeds(){
+  
+}
 
 void setup() {
   Serial.begin(115200);
@@ -22,9 +40,10 @@ void loop() {
     Serial.println("Left button pressed...");
     
     // Animation "3"
-    CircuitPlayground.setPixelColor(0, 0xFF0000);
-    CircuitPlayground.setPixelColor(1, 0xFF0000);
-    CircuitPlayground.setPixelColor(2, 0xFF0000);
+    for(uint8_t i; i<3; i++){
+      rawPixelColorValue[i] = 0xFF0000;
+    }
+    setPixelColorValues();
     Serial.print("3... ");
     CircuitPlayground.playTone(440, 100, false);
     delay(1000);
@@ -46,6 +65,6 @@ void loop() {
       CircuitPlayground.setPixelColor(i, 0x00FF00);
     }
     Serial.println(" Time up! ");
-    CircuitPlayground.playTone(880, 100, false);
+    CircuitPlayground.playTone(880, 1000, false);
   }
 }
